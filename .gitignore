@@ -1,0 +1,20 @@
+# Ignorar archivos de configuración del entorno
+.env
+
+# Ignorar entornos virtuales
+venv/
+env/
+scrap/
+
+# Ignorar archivos compilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignorar directorios de logs
+logs/
+*.log
+
+# Ignorar configuraciones específicas de IDEs
+.vscode/
+.idea/
