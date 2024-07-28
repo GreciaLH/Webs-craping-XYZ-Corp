@@ -1,21 +1,37 @@
-<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quotes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <h1>Quotes</h1>
-    <ul>
-        {% for quote in quotes %}
-        <li>
+    <div class="card-container">
+        {% for quote in quotes.items %}
+        <div class="card">
             <p>{{ quote.text }}</p>
             <small>— {{ quote.author }}</small>
-            <p>Tags: {{ quote.tags }}</p>
-        </li>
+            <p class="tag">Tags: {{ quote.tags }}</p>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
+    <div class="pagination">
+        {% if quotes.has_prev %}
+            <a href="{{ url_for('index', page=quotes.prev_num) }}">&#171; Previous</a>
+        {% endif %}
+        {% for page_num in quotes.iter_pages() %}
+            {% if page_num %}
+                <a href="{{ url_for('index', page=page_num) }}" class="{{ 'active' if page_num == quotes.page else '' }}">{{ page_num }}</a>
+            {% else %}
+                ...
+            {% endif %}
+        {% endfor %}
+        {% if quotes.has_next %}
+            <a href="{{ url_for('index', page=quotes.next_num) }}">Next &#187;</a>
+        {% endif %}
+    </div>
 </body>
 </html>
+
