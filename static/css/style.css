@@ -1,7 +1,7 @@
 /* Estilo neobrutalista */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #CB9FD2;
+    font-family: 'Roboto Mono', sans-serif;
+    background-color: #AC97F3;
     margin: 0;
     padding: 0;
     display: flex;
@@ -10,11 +10,13 @@ body {
     flex-direction: column;
 }
 h1 {
+    font-family: 'IBM Plex Mono', monospace;
     color: #000;
     background: #fff;
     padding: 10px 20px;
     box-shadow: 4px 4px 0 #000;
 }
+
 .card-container {
     width: 70%;
     display: flex;
@@ -30,11 +32,12 @@ h1 {
     padding: 20px;
     margin: 10px;
     box-shadow: 8px 8px 0 #000;
-    width: 80%;
+    width: 70%;
 }
 .card p {
+    font-family: 'IBM Plex Mono', monospace;
     margin: 0;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 .card small {
     display: block;
@@ -63,4 +66,24 @@ h1 {
 }
 .pagination a:hover {
     background: #ddd;
+}
+
+a.tag {
+    font-size: 12px;
+    font-weight: 700;
+    background-color: #A4EA31;
+    border-radius: 5px;
+    padding: 2px 5px;
+    color: #000;
+    text-decoration: none;
+}
+
+.inicio a.enlace_inicio {
+    margin: 0 5px;
+    padding: 10px 20px;
+    background: #fff;
+    border: 2px solid #000;
+    text-decoration: none;
+    color: #000;
+    box-shadow: 4px 4px 0 #000;
 }
