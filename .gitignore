@@ -18,3 +18,6 @@ logs/
 # Ignorar configuraciones específicas de IDEs
 .vscode/
 .idea/
+
+
+consultas.sql
