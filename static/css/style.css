@@ -1,0 +1,66 @@
+/* Estilo neobrutalista */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #CB9FD2;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+h1 {
+    color: #000;
+    background: #fff;
+    padding: 10px 20px;
+    box-shadow: 4px 4px 0 #000;
+}
+.card-container {
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.card {
+    background: #F3FFE3;
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 8px 8px 0 #000;
+    width: 80%;
+}
+.card p {
+    margin: 0;
+    font-size: 1.2em;
+}
+.card small {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.8em;
+    color: #555;
+}
+.pagination {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pagination a {
+    margin: 0 5px;
+    padding: 10px 20px;
+    background: #fff;
+    border: 2px solid #000;
+    text-decoration: none;
+    color: #000;
+    box-shadow: 4px 4px 0 #000;
+}
+.pagination a.active {
+    background: #000;
+    color: #fff;
+}
+.pagination a:hover {
+    background: #ddd;
+}
