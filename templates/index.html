@@ -13,7 +13,7 @@
         {% for quote in quotes.items %}
         <div class="card">
             <p class="quote">{{ quote.text }}</p>
-            <small>— {{ quote.author }}</small>
+            <small>— <a href="{{ url_for('author', author_name=quote.author) }}">{{ quote.author }}</a></small>
             <p>
                 {% for tag in quote.tags %}
                     <a class="tag" href="{{ url_for('tag', tag_name=tag.name) }}">{{ tag.name }}</a>{% if not loop.last %}, {% endif %}
@@ -51,7 +51,7 @@
     </div>
     <div>
         {% if current_tag %}
-        <p class="inicio"><a class="enlace_inicio" href="{{ url_for('index') }}">Back to all quotes</a></p>
+        <a class="enlace_inicio" href="{{ url_for('index') }}">Back to all quotes</a>
         {% endif %}
     </div>
 </body>

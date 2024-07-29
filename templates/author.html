@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About {{ author.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>About {{ author.name }}</h1>
+    <div class="about-container">
+        <div class="card">
+            <p class="about-text">{{ author.about }}</p>
+        </div>
+    </div>
+    <div class="back">
+        <a class="enlace_inicio" href="{{ url_for('index') }}">Back to Quotes</a>
+    </div>
+</body>
+</html>
+
