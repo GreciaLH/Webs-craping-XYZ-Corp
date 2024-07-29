@@ -35,6 +35,12 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False, unique=True)
 
+class Author(db.Model):
+    __tablename__ = 'authors'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False, unique=True)
+    about = db.Column(db.Text, nullable=True)
+
 # Configuración de logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -62,5 +68,11 @@ def tag(tag_name):
     
     return render_template('index.html', quotes=quotes, current_tag=tag)
 
+@app.route('/author/<author_name>')
+def author(author_name):
+    author = Author.query.filter_by(name=author_name).first_or_404()
+    return render_template('author.html', author=author)
+
 if __name__ == "__main__":
     app.run(debug=True)
+

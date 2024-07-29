@@ -78,7 +78,7 @@ a.tag {
     text-decoration: none;
 }
 
-.inicio a.enlace_inicio {
+a.enlace_inicio {
     margin: 0 5px;
     padding: 10px 20px;
     background: #fff;
@@ -86,4 +86,19 @@ a.tag {
     text-decoration: none;
     color: #000;
     box-shadow: 4px 4px 0 #000;
+}
+
+.about-container {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+.about-container .card {
+    width: 100%;
+}
+
+p.about-text{
+    font-family: 'Roboto Mono', sans-serif;
 }

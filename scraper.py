@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 # Cargar variables de entorno
 load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
-logger.info(f"Database URL: {DATABASE_URL.split('@')[1] if '@' in DATABASE_URL else DATABASE_URL}")  # Log the database URL without credentials
+logger.info(f"Database URL: {DATABASE_URL.split('@')[1] if '@' in DATABASE_URL else DATABASE_URL}")  # Log the database URL sin credenciales
 
 # Configuración de la base de datos
 engine = create_engine(DATABASE_URL)
@@ -35,13 +35,35 @@ class Quote(Base):
     id = Column(Integer, primary_key=True)
     text = Column(Text, nullable=False, unique=True)
     author = Column(String(100), nullable=False)
-    tags = relationship('Tag', secondary=quote_tag, lazy='subquery',
-                        backref='quotes')
+    tags = relationship('Tag', secondary=quote_tag, lazy='subquery', backref='quotes')
 
 class Tag(Base):
     __tablename__ = 'tags'
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False, unique=True)
+
+class Author(Base):
+    __tablename__ = 'authors'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False, unique=True)
+    about = Column(Text, nullable=True)
+
+def scrape_author(url, author_name):
+    try:
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        about = soup.find('div', class_='author-description').text.strip()
+        
+        author = session.query(Author).filter_by(name=author_name).first()
+        if author:
+            author.about = about
+        else:
+            new_author = Author(name=author_name, about=about)
+            session.add(new_author)
+        
+        logger.info(f"Scraped author info for {author_name}")
+    except Exception as e:
+        logger.error(f"Error scraping author {author_name}: {str(e)}")
 
 def scrape_quotes():
     base_url = 'https://quotes.toscrape.com/page/{}/'
@@ -74,6 +96,8 @@ def scrape_quotes():
         for quote in quotes:
             text = quote.find('span', class_='text').get_text()
             author = quote.find('small', class_='author').get_text()
+            author_url = quote.find('a')['href']
+            author_url = f"https://quotes.toscrape.com{author_url}"
             tags = [tag.get_text() for tag in quote.find_all('a', class_='tag')]
 
             logger.info(f"Processing quote: {text[:30]}... by {author}")
@@ -100,6 +124,9 @@ def scrape_quotes():
                     if tag not in quote_data.tags:
                         quote_data.tags.append(tag)
                         logger.info(f'Added tag {tag_name} to quote: {text[:30]}...')
+                
+                # Scrape author info
+                scrape_author(author_url, author)
             except SQLAlchemyError as db_err:
                 logger.error(f"Database error occurred: {db_err}")
                 session.rollback()
@@ -136,6 +163,8 @@ if __name__ == '__main__':
     tag_count = session.query(Tag).count()
     logger.info(f"Total quotes in database: {quote_count}")
     logger.info(f"Total tags in database: {tag_count}")
+
+
 
 
 
